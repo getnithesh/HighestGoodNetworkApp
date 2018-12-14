@@ -1,35 +1,15 @@
-import React from "react";
+import React, { Component } from "react";
 import TimeEntry from "./TimeEntry";
-import { getCurrentUser } from "../../services/loginService";
+import { connect } from "react-redux";
+import Leaderboard from "../Leaderboard";
+import { getCurrentUser } from "../../actions";
+import { getjwt } from "../../services/loginService";
 import { Container, Row, Col } from "reactstrap";
-import Form from "../common/form";
-import Httpervice from "../../services/httpervice";
 
-class TimelogPage extends Form {
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {};
+class TimelogPage extends Component {
+  componentDidMount() {
+    this.props.getCurrentUser(getjwt());
   }
-
-  componentWillMount() {
-    const data = getCurrentUser();
-    this.setState({ data: data }, () => {
-      this.getData();
-    });
-  }
-
-  getData = () => {
-    console.log(this.state.data.userid);
-    const api = process.env.REACT_APP_APIENDPOINT;
-    Httpervice.setjwt(localStorage.getItem("token"));
-    Httpervice.get(`${api}/projects/user/${this.state.data.userid}`).then(
-      response => {
-        console.log(response.data);
-        this.setState({ projects: response.data });
-      }
-    );
-  };
 
   render() {
     return (
@@ -42,20 +22,31 @@ class TimelogPage extends Form {
         <Row>
           <Col sm={6} md={3}>
             <h2 className="float-left" onClick={this.handleClick}>
-              Jordan Miller
+              {"a"}
             </h2>
           </Col>
         </Row>
         <Row>
           <Col lg={8}>
             <TimeEntry
-              userData={this.state.data}
-              projects={this.state.projects}
+              userData={/* hardcode */ "hi"}
+              projects={/* hardcore */ ["a", "b"]}
             />
+          </Col>
+          <Col lg={4}>
+            <Leaderboard />
           </Col>
         </Row>
       </Container>
     );
   }
 }
-export default TimelogPage;
+
+const mapStateToProps = state => {
+  return { state };
+};
+
+export default connect(
+  mapStateToProps,
+  { getCurrentUser }
+)(TimelogPage);

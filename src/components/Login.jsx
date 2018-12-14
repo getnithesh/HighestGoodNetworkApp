@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import Joi from "joi";
-import Form from "./common/form";
+import { renderInput, renderButton } from "./common/form";
 import { login, getCurrentUser } from "../services/loginService";
 import { Redirect } from "react-router-dom";
 
-class Login extends Form {
+class Login extends Component {
   state = {
     data: { email: "", password: "" },
     errors: {}
@@ -43,7 +43,6 @@ class Login extends Form {
   };
 
   render() {
-    
     if (getCurrentUser()) return <Redirect to="/" />;
 
     return (
@@ -51,9 +50,9 @@ class Login extends Form {
         <h2>Please Sign in</h2>
 
         <form className="col-md-6 xs-12" onSubmit={e => this.handleSubmit(e)}>
-          {this.renderInput("email", "Email:")}
-          {this.renderInput("password", "Password:", "password")}
-          {this.renderButton("Submit")}
+          {renderInput("email", "Email:")}
+          {renderInput("password", "Password:", "password")}
+          {renderButton("Submit")}
         </form>
       </div>
     );

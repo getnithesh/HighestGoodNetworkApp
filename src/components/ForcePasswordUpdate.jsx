@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import { forcePasswordUpdate } from "../services/forcePasswordUpdate";
-import Form from "./common/form";
+import { renderInput, renderButton } from "./common/form";
 import Joi from "joi";
 import { toast } from "react-toastify";
 
-class ForcePasswordUpdate extends Form {
+class ForcePasswordUpdate extends Component {
   state = {
     data: { newPassword: "", confirmNewPassword: "" },
     errors: {}
@@ -77,13 +77,9 @@ class ForcePasswordUpdate extends Form {
         <h2>Change Password</h2>
 
         <form className="col-md-6 xs-12" onSubmit={e => this.handleSubmit(e)}>
-          {this.renderInput("newPassword", "New Password:", "password")}
-          {this.renderInput(
-            "confirmNewPassword",
-            "Confirm Password:",
-            "password"
-          )}
-          {this.renderButton("Submit")}
+          {renderInput("newPassword", "New Password:", "password")}
+          {renderInput("confirmNewPassword", "Confirm Password:", "password")}
+          {renderButton("Submit")}
         </form>
       </div>
     );

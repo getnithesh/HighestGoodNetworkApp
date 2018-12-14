@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import TimeEntry from "./TimeEntry";
 import { FormGroup, Container, Row, Col, Button } from "reactstrap";
-import Form from "../common/form";
 import Joi from "joi";
+import {
+  renderInput,
+  renderDropDown,
+  renderTextarea,
+  renderButton
+} from "../common/form";
 import moment from "moment";
-import Httpervice from "../../services/httpervice";
+import { connect } from "react-redux";
+import { postTimeEntry } from "../../actions";
 
-class TimeEntryBody extends Form {
+class TimeEntryBody extends Component {
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      data: {},
-      errors: {}
-    };
   }
 
   schema = {
@@ -65,21 +65,6 @@ class TimeEntryBody extends Form {
     notes: Joi.string().label("notes")
   };
 
-  postTimeEntry = timeData => {
-    Httpervice.setjwt(localStorage.getItem("token"));
-    Httpervice.post(
-      `${process.env.REACT_APP_APIENDPOINT}/TimeEntry`,
-      timeData,
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    ).then(response => {
-      console.log(response);
-    });
-  };
-
   handleSubmit = () => {
     let timeEntry = {};
     // timeEntry.timeSpent = `${this.state.data.hours}:${this.state.data.minutes}`;
@@ -90,11 +75,11 @@ class TimeEntryBody extends Form {
     timeEntry.isTangible = "false";
     timeEntry.notes = this.state.data.notes;
     console.log(timeEntry);
-    this.postTimeEntry(timeEntry);
+    postTimeEntry(timeEntry);
   };
 
   componentWillMount() {
-    console.log("userData: ", this.props.userData);
+    console.log("context!!!!!!!!!!!!!!!", this.props);
   }
 
   render() {
@@ -109,43 +94,37 @@ class TimeEntryBody extends Form {
           <Row>
             <Col lg={12}>
               <FormGroup>
-                {this.renderInput("date", "Date", "date", min, max)}
+                {renderInput("date", "Date", "date", min, max)}
               </FormGroup>
             </Col>
           </Row>
           <Row>
             <Col lg={6}>
               <FormGroup>
-                {this.renderInput("hours", "Hours", "number", 0, 23)}
+                {renderInput("hours", "Hours", "number", 0, 23)}
               </FormGroup>
             </Col>
             <Col lg={6}>
               <FormGroup>
-                {this.renderInput("minutes", "Minutes", "number", 0, 59)}
+                {renderInput("minutes", "Minutes", "number", 0, 59)}
               </FormGroup>
             </Col>
           </Row>
           <Row>
             <Col lg={12}>
               <FormGroup>
-                {this.renderDropDown(
-                  "projectId",
-                  "Projects",
-                  this.props.projects
-                )}
+                {renderDropDown("projectId", "Projects", ["a", "b"])}
               </FormGroup>
             </Col>
           </Row>
           <Row>
             <Col lg={12}>
-              <FormGroup>
-                {this.renderTextarea("notes", "Notes", 3, 4)}
-              </FormGroup>
+              <FormGroup>{renderTextarea("notes", "Notes", 3, 4)}</FormGroup>
             </Col>
           </Row>
           <Row>
             <FormGroup>
-              {this.renderInput("tangible", "Tangible", "checkbox")}
+              {renderInput("tangible", "Tangible", "checkbox")}
             </FormGroup>
           </Row>
           <Row>
@@ -154,11 +133,16 @@ class TimeEntryBody extends Form {
                 Clear Form
               </Button>
             </Col>
-            <Col>{this.renderButton("Submit", this.handleSubmit)}</Col>
+            <Col>{renderButton("Submit", this.handleSubmit)}</Col>
           </Row>
         </Container>
       </div>
     );
   }
 }
-export default TimeEntryBody;
+
+const mapStateToProps = state => {
+  return state;
+};
+
+export default connect(mapStateToProps)(TimeEntryBody);

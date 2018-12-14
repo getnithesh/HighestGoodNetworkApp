@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getCurrentUser } from "../actions";
-import { getjwt } from "../services/loginService"; 
+import { getjwt } from "../services/loginService";
 import { Card, Row, CardTitle, CardText, Col } from "reactstrap";
 import MonthlyEffort from "./MonthlyEffort";
 import Leaderboard from "./Leaderboard";
@@ -10,6 +10,7 @@ import "../App.css";
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentUser(getjwt());
+    console.log(this.props);
   }
 
   render() {
@@ -48,4 +49,7 @@ const mapStateToProps = state => {
   return { state };
 };
 
-export default connect(mapStateToProps, { getCurrentUser })(Dashboard);
+export default connect(
+  mapStateToProps,
+  { getCurrentUser }
+)(Dashboard);
