@@ -9,10 +9,6 @@ export const getCurrentUser = token => {
   }
 }
 
-export function clearUserProfile() {
-  return { type: 'CLEAR_USER_PROFILE' }
-}
-
 // export function getAllUserProfiles() {
 //   const request = httpService.get(`${APIEndpoint}/userprofile`)
 

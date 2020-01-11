@@ -1,5 +1,14 @@
 import { GET_USER_PROFILE } from '../actionCreators/userProfile'
-export const userProfileByIdReducer = (userProfile = {}, action) => {
+
+const initialUserProfileState = {
+  firstName: '',
+  lastName: '',
+  isActive: ''
+}
+export const userProfileByIdReducer = (
+  userProfile = initialUserProfileState,
+  action
+) => {
   if (action.type === GET_USER_PROFILE) {
     return action.payload
   }

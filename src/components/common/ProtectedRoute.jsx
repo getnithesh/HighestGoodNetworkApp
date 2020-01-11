@@ -1,6 +1,6 @@
-import React from "react";
-import { getCurrentUser } from "../../services/loginService";
-import { Redirect, Route } from "react-router-dom";
+import React from 'react'
+import { getCurrentUser } from '../../services/loginService'
+import { Redirect, Route } from 'react-router-dom'
 
 const ProtectedRoute = ({ component: Component, render, ...rest }) => {
   return (
@@ -10,13 +10,13 @@ const ProtectedRoute = ({ component: Component, render, ...rest }) => {
         if (!getCurrentUser())
           return (
             <Redirect
-              to={{ pathname: "/login", state: { from: props.location } }}
+              to={{ pathname: '/login', state: { from: props.location } }}
             />
-          );
-        return Component ? <Component {...props} /> : render(props);
+          )
+        return Component ? <Component {...props} /> : render(props)
       }}
     />
-  );
-};
+  )
+}
 
-export default ProtectedRoute;
+export default ProtectedRoute
