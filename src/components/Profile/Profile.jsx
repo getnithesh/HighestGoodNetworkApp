@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
-import Form from '../common/form'
+import Form from '../common/Form'
 import Joi from 'joi'
 import RenderInfringment from '../RenderInfringement/RenderInfringment'
 import ProfileLinks from '../ProfileLinks/ProfileLinks'
