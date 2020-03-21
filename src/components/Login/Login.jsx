@@ -6,6 +6,9 @@ import { withRouter } from "react-router-dom";
 import { loginUser } from "../../actions/authActions"
 import { clearErrors } from "../../actions/errorsActions"
 
+/**
+ * The only true Login
+ */
 export class Login extends Form {
   state = {
     data: { email: "", password: "" },
