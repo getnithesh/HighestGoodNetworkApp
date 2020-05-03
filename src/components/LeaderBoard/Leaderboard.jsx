@@ -3,7 +3,6 @@ import React, { Component, useEffect } from 'react'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import Loading from '../common/Loading'
-
 import getcolor from '../../utils/effortColors'
 import { Table, Badge, Progress } from 'reactstrap'
 
@@ -54,7 +53,7 @@ const LeaderBoard = ({ getLeaderboardData, leaderBoardData, loggedInUser }) => {
 	)
 }
 
-class Leaderboard1 extends Component {
+export class Leaderboard1 extends Component {
 	state = {
 		leaderboardData: [],
 		maxtotal: 0,
