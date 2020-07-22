@@ -1,8 +1,8 @@
 export const timeEntriesForSpecifiedProjectReducer = (
   timeEntries = null,
-  action,
+  action
 ) => {
-  if (action.type === 'GET_TIME_ENTRY_FOR_SPECIFIED_PROJECT') {
+  if (action.type === "GET_TIME_ENTRY_FOR_SPECIFIED_PROJECT") {
     return action.payload;
   }
 

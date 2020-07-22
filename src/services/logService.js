@@ -1,8 +1,8 @@
-import * as Sentry from '@sentry/browser';
+import * as Sentry from "@sentry/browser";
 
 function init() {
   Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_URL,
+    dsn: process.env.REACT_APP_SENTRY_URL
   });
 }
 
@@ -17,6 +17,5 @@ function logInfo(message) {
 export default {
   init,
   logError,
-  logInfo,
-
+  logInfo
 };

@@ -1,8 +1,8 @@
 export const monthlyDashboardDataReducer = (
   monthlyDashboardData = null,
-  action,
+  action
 ) => {
-  if (action.type === 'GET_MONTHLY_DASHBOARD_DATA') {
+  if (action.type === "GET_MONTHLY_DASHBOARD_DATA") {
     return action.payload;
   }
 

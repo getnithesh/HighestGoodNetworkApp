@@ -36,7 +36,7 @@
   },
   "scripts": {
     "prestart": "npm run test",
-    "start": "react-scripts start",
+    "start": "eslint src --fix react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint src --fix",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
@@ -56,18 +56,19 @@
     "cross-env": "^5.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^17.1.1",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^5.1.0",
-    "eslint-plugin-import": "^2.20.0",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.17.0",
-    "prettier": "^1.19.1",
-    "sinon": "^7.3.2",
-    "surge": "^0.21.3",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jsx-a11y": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.0",
     "fetch-mock": "^9.10.1",
+    "node-fetch": "^2.6.0",
+    "prettier": "^1.19.1",
     "redux-mock-store": "^1.5.4",
-    "node-fetch": "^2.6.0"
+    "sinon": "^7.3.2",
+    "surge": "^0.21.3"
   }
 }

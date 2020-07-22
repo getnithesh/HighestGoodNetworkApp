@@ -1,6 +1,6 @@
-import jwtDecode from 'jwt-decode';
-import httpService from './httpService';
-import config from '../config.json';
+import jwtDecode from "jwt-decode";
+import httpService from "./httpService";
+import config from "../config.json";
 
 const loginApiEndpoint = `${process.env.REACT_APP_APIENDPOINT}/login`;
 

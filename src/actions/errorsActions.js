@@ -1,4 +1,4 @@
-import { CLEAR_ERRORS } from '../constants/errors'
+import { CLEAR_ERRORS } from "../constants/errors";
 
 export const clearErrors = () => {
   return {

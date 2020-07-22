@@ -1,4 +1,4 @@
-import { GET_ERRORS, CLEAR_ERRORS } from '../constants/errors';
+import { GET_ERRORS, CLEAR_ERRORS } from "../constants/errors";
 
 const initialState = {};
 
@@ -11,4 +11,4 @@ export const errorsReducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};

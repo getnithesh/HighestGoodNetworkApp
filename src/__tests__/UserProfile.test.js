@@ -1,10 +1,10 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { toast } from 'react-toastify';
-import UserProfile from '../components/UserProfile';
-import { getUserProfile } from '../services/userProfileService';
+import React from "react";
+import { shallow, mount } from "enzyme";
+import { toast } from "react-toastify";
+import UserProfile from "../components/UserProfile";
+import { getUserProfile } from "../services/userProfileService";
 
-test.skip('it skips tests because redux', () => {
+test.skip("it skips tests because redux", () => {
   expect(reduxTests()).toBe(0);
 });
 // describe("UserPage", () => {

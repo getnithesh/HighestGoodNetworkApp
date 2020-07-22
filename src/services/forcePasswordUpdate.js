@@ -1,4 +1,4 @@
-import httpService from './httpService';
+import httpService from "./httpService";
 
 const ApiEndpoint = `${process.env.REACT_APP_APIENDPOINT}/forcepassword`;
 

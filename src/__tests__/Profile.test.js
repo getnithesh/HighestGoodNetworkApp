@@ -1,15 +1,15 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import Profile from '../components/Profile';
+import React from "react";
+import { shallow } from "enzyme";
+import Profile from "../components/Profile";
 
-const setInputField = function (page, name, value) {
+const setInputField = function(page, name, value) {
   const mockEvent = {
     currentTarget: {
       name,
-      value,
-    },
+      value
+    }
   };
-  page.find(`[name="${name}"]`).simulate('change', mockEvent);
+  page.find(`[name="${name}"]`).simulate("change", mockEvent);
 };
 
 const errorsMessages = {
@@ -21,19 +21,19 @@ const errorsMessages = {
   email_invalid: '"Email" must be a valid email',
   weeklyComittedHours_Nan: '"Weekly Committed Hours" must be a number',
   weeklyComittedHours_LessThan0:
-    '"Weekly Committed Hours" must be larger than or equal to 0',
+    '"Weekly Committed Hours" must be larger than or equal to 0'
 };
 
-describe('Profile Page', () => {
+describe("Profile Page", () => {
   let profilePage;
 
   beforeEach(() => {
-    const userProfile = { firstName: 'ABC' };
+    const userProfile = { firstName: "ABC" };
     profilePage = shallow(<Profile userProfile={userProfile} />);
   });
 
-  describe('Structure', () => {
-    it('should have all user profile fields field_Admin', () => {
+  describe("Structure", () => {
+    it("should have all user profile fields field_Admin", () => {
       expect(profilePage.find('[name="firstName"]').length).toBe(1);
       expect(profilePage.find('[name="lastName"]').length).toBe(1);
       expect(profilePage.find('[name="email"]').length).toBe(1);
@@ -42,110 +42,113 @@ describe('Profile Page', () => {
       expect(profilePage.find('[name="profilePic"]').length).toBe(1);
       expect(profilePage.find('[name="bio"]').length).toBe(1);
       expect(
-        profilePage.find('[name="infringments"]').length,
+        profilePage.find('[name="infringments"]').length
       ).toBeLessThanOrEqual(5);
       expect(
-        profilePage.find('[name="adminLinks"]').length,
+        profilePage.find('[name="adminLinks"]').length
       ).toBeGreaterThanOrEqual(0);
       expect(
-        profilePage.find('[name="personalLinks"]').length,
+        profilePage.find('[name="personalLinks"]').length
       ).toBeGreaterThanOrEqual(0);
       expect(profilePage.find('[name="teams"]').length).toBeGreaterThanOrEqual(
-        0,
+        0
       );
       expect(
-        profilePage.find('[name="projects"]').length,
+        profilePage.find('[name="projects"]').length
       ).toBeGreaterThanOrEqual(0);
     });
   });
 
-  describe('Behavior', () => {
-    it('should show error if firstName is blank', () => {
-      setInputField(profilePage, 'firstName', '');
+  describe("Behavior", () => {
+    it("should show error if firstName is blank", () => {
+      setInputField(profilePage, "firstName", "");
       expect(profilePage.instance().state.errors.firstName).toEqual(
-        errorsMessages.firstName_blank,
+        errorsMessages.firstName_blank
       );
     });
-    it('should show error if firstName has only spaces', () => {
-      setInputField(profilePage, 'firstName', '     ');
+    it("should show error if firstName has only spaces", () => {
+      setInputField(profilePage, "firstName", "     ");
       expect(profilePage.instance().state.errors.firstName).toEqual(
-        errorsMessages.firstName_blank,
+        errorsMessages.firstName_blank
       );
     });
-    it('should show error if firstName is less than two charcaters', () => {
-      setInputField(profilePage, 'firstName', 'a');
+    it("should show error if firstName is less than two charcaters", () => {
+      setInputField(profilePage, "firstName", "a");
       expect(profilePage.instance().state.errors.firstName).toEqual(
-        errorsMessages.firstName_minlength,
+        errorsMessages.firstName_minlength
       );
     });
 
-    it('should show error if lastName is blank', () => {
-      setInputField(profilePage, 'lastName', '');
+    it("should show error if lastName is blank", () => {
+      setInputField(profilePage, "lastName", "");
       expect(profilePage.instance().state.errors.lastName).toEqual(
-        errorsMessages.lastName_blank,
+        errorsMessages.lastName_blank
       );
     });
-    it('should show error if lastName has only spaces', () => {
-      setInputField(profilePage, 'lastName', '     ');
+    it("should show error if lastName has only spaces", () => {
+      setInputField(profilePage, "lastName", "     ");
       expect(profilePage.instance().state.errors.lastName).toEqual(
-        errorsMessages.lastName_blank,
+        errorsMessages.lastName_blank
       );
     });
-    it('should show error if lastName is less than two charcaters', () => {
-      setInputField(profilePage, 'lastName', 'a');
+    it("should show error if lastName is less than two charcaters", () => {
+      setInputField(profilePage, "lastName", "a");
       expect(profilePage.instance().state.errors.lastName).toEqual(
-        errorsMessages.lastName_minlength,
+        errorsMessages.lastName_minlength
       );
     });
-    it('should show error if email is blank', () => {
-      setInputField(profilePage, 'email', '');
+    it("should show error if email is blank", () => {
+      setInputField(profilePage, "email", "");
       expect(profilePage.instance().state.errors.email).toEqual(
-        errorsMessages.email_blank,
+        errorsMessages.email_blank
       );
     });
-    it('should show error if email is invalid', () => {
-      setInputField(profilePage, 'email', 'abcc');
+    it("should show error if email is invalid", () => {
+      setInputField(profilePage, "email", "abcc");
       expect(profilePage.instance().state.errors.email).toEqual(
-        errorsMessages.email_invalid,
+        errorsMessages.email_invalid
       );
     });
-    it('should show error if weeklyComittedHours is not a number', () => {
-      setInputField(profilePage, 'weeklyComittedHours', 'abcc');
-      expect(
-        profilePage.instance().state.errors.weeklyComittedHours,
-      ).toEqual(errorsMessages.weeklyComittedHours_Nan);
+    it("should show error if weeklyComittedHours is not a number", () => {
+      setInputField(profilePage, "weeklyComittedHours", "abcc");
+      expect(profilePage.instance().state.errors.weeklyComittedHours).toEqual(
+        errorsMessages.weeklyComittedHours_Nan
+      );
     });
-    it('should show error if weeklyComittedHours is less than 0', () => {
-      setInputField(profilePage, 'weeklyComittedHours', -1);
-      expect(
-        profilePage.instance().state.errors.weeklyComittedHours,
-      ).toEqual(errorsMessages.weeklyComittedHours_LessThan0);
+    it("should show error if weeklyComittedHours is less than 0", () => {
+      setInputField(profilePage, "weeklyComittedHours", -1);
+      expect(profilePage.instance().state.errors.weeklyComittedHours).toEqual(
+        errorsMessages.weeklyComittedHours_LessThan0
+      );
     });
   });
 });
 
-describe('Behavior for props passed', () => {
+describe("Behavior for props passed", () => {
   let mountedPage_Admin;
   let mountedPage_Self;
   let mountedPage_Viewer;
-  const firstName = 'Jane';
-  const lastName = 'Doe';
-  const email = 'someemail@test.com';
+  const firstName = "Jane";
+  const lastName = "Doe";
+  const email = "someemail@test.com";
   const isActive = false;
-  const role = 'Volunteer';
+  const role = "Volunteer";
   const weeklyComittedHours = 100;
-  const bio = 'some Bio which is really long';
+  const bio = "some Bio which is really long";
   const links = [
-    { Name: 'Link1', Link: 'https://www.google.com' },
-    { Name: 'This is Link2', Link: 'https://www.facebook.com' },
+    { Name: "Link1", Link: "https://www.google.com" },
+    { Name: "This is Link2", Link: "https://www.facebook.com" }
   ];
   const infringments = [];
   const targetUserId = 1234;
-  const profilePic = '';
-  const teams = [{ _id: 1, teamName: 'team1' }, { _id: 2, teamName: 'team2' }];
+  const profilePic = "";
+  const teams = [
+    { _id: 1, teamName: "team1" },
+    { _id: 2, teamName: "team2" }
+  ];
   const projects = [
-    { _id: 1, projectName: 'project1' },
-    { _id: 2, projectName: 'project2' },
+    { _id: 1, projectName: "project1" },
+    { _id: 2, projectName: "project2" }
   ];
   const userProfile = {
     firstName,
@@ -160,7 +163,7 @@ describe('Behavior for props passed', () => {
     infringments,
     profilePic,
     teams,
-    projects,
+    projects
   };
 
   beforeEach(() => {
@@ -169,7 +172,7 @@ describe('Behavior for props passed', () => {
         userProfile={userProfile}
         targetUserId={targetUserId}
         requestorRole="Administrator"
-      />,
+      />
     );
     mountedPage_Self = shallow(
       <Profile
@@ -177,7 +180,7 @@ describe('Behavior for props passed', () => {
         targetUserId={targetUserId}
         requestorId={targetUserId}
         requestorRole="Volunteer"
-      />,
+      />
     );
     mountedPage_Viewer = shallow(
       <Profile
@@ -185,10 +188,10 @@ describe('Behavior for props passed', () => {
         targetUserId={targetUserId + 100}
         requestorId={targetUserId}
         requestorRole="Volunteer"
-      />,
+      />
     );
   });
-  it('should correctly render the firstName, editable by self and admin and readonly for viewer', () => {
+  it("should correctly render the firstName, editable by self and admin and readonly for viewer", () => {
     // Admin
     const field_Admin = mountedPage_Admin.find("[name='firstName']");
     expect(field_Admin.props().value).toEqual(firstName);
@@ -204,43 +207,43 @@ describe('Behavior for props passed', () => {
     expect(field_Viewer.props().value).toEqual(firstName);
     expect(field_Viewer.props().readOnly).toBeTruthy();
   });
-  it('should render default profile pic if no profilePic was passed', () => {
-    const field_Admin = mountedPage_Admin.find('Image');
-    expect(field_Admin.props().src).toEqual('/defaultprofilepic.jpg');
+  it("should render default profile pic if no profilePic was passed", () => {
+    const field_Admin = mountedPage_Admin.find("Image");
+    expect(field_Admin.props().src).toEqual("/defaultprofilepic.jpg");
   });
 
-  it('should render edit button only if user is admin or self but not for other viewer', () => {
-    const field_Admin = mountedPage_Admin.find('FileUpload');
+  it("should render edit button only if user is admin or self but not for other viewer", () => {
+    const field_Admin = mountedPage_Admin.find("FileUpload");
     expect(field_Admin.length).toEqual(1);
 
-    const field_Self = mountedPage_Self.find('FileUpload');
+    const field_Self = mountedPage_Self.find("FileUpload");
     expect(field_Self.length).toEqual(1);
 
-    const field_Viewer = mountedPage_Viewer.find('FileUpload');
+    const field_Viewer = mountedPage_Viewer.find("FileUpload");
     expect(field_Viewer.length).toEqual(0);
   });
 
   it("should correctly render a button to user's timelog", () => {
-    const field_Admin = mountedPage_Admin.find('Link');
+    const field_Admin = mountedPage_Admin.find("Link");
     expect(field_Admin.props().to).toEqual(`/timelog/${targetUserId}`);
   });
-  it('should correctly render the lastName', () => {
+  it("should correctly render the lastName", () => {
     const field_Admin = mountedPage_Admin.find("[name='lastName']");
     expect(field_Admin.props().value).toEqual(lastName);
   });
-  it('should correctly render the email', () => {
+  it("should correctly render the email", () => {
     const field_Admin = mountedPage_Admin.find("[name='email']");
     expect(field_Admin.props().value).toEqual(email);
   });
-  it('should correctly render isActive', () => {
+  it("should correctly render isActive", () => {
     const field_Admin = mountedPage_Admin.find("[name='isActive']");
     expect(field_Admin.props().value).toEqual(isActive);
   });
-  it('should correctly render role', () => {
+  it("should correctly render role", () => {
     const field_Admin = mountedPage_Admin.find("[name='role']");
     expect(field_Admin.props().value).toEqual(role);
   });
-  it('should correctly render weeklyComittedHours', () => {
+  it("should correctly render weeklyComittedHours", () => {
     const field_Admin = mountedPage_Admin.find("[name='weeklyComittedHours']");
     expect(field_Admin.props().value).toEqual(weeklyComittedHours);
   });
@@ -256,15 +259,15 @@ describe('Behavior for props passed', () => {
     const field_Admin = mountedPage_Admin.find("[collection='personalLinks']");
     expect(field_Admin.props().data).toEqual(links);
   });
-  it('should correctly render exactly 5 infringments', () => {
-    const field_Admin = mountedPage_Admin.find('RenderInfringment');
+  it("should correctly render exactly 5 infringments", () => {
+    const field_Admin = mountedPage_Admin.find("RenderInfringment");
     expect(field_Admin.length).toEqual(5);
   });
-  it('should correctly render teams correctly', () => {
+  it("should correctly render teams correctly", () => {
     const field_Admin = mountedPage_Admin.find("Memberships[label='Team']");
     expect(field_Admin.props().data).toEqual(teams);
   });
-  it('should correctly render projects correctly', () => {
+  it("should correctly render projects correctly", () => {
     const field_Admin = mountedPage_Admin.find("Memberships[label='Project']");
     expect(field_Admin.props().data).toEqual(projects);
   });

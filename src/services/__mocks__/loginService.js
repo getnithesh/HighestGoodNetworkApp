@@ -1,16 +1,15 @@
 let getCurrentUser_result;
 const getCurrentUseroptions = {
-  userPresent: { foo: 'bar', baz: 'masklsd' },
+  userPresent: { foo: "bar", baz: "masklsd" },
   userNotPresent: null,
   headerTest: {
-        	name: 'Foobar',
+    name: "Foobar",
     profilePic: undefined,
-    userId: '5be0952c633dae0016081b4b',
-  },
-
+    userId: "5be0952c633dae0016081b4b"
+  }
 };
 
-getCurrentUser.__setValue = (option) => {
+getCurrentUser.__setValue = option => {
   getCurrentUser_result = getCurrentUseroptions[option];
 };
 
@@ -19,6 +18,6 @@ export function getCurrentUser() {
 }
 
 export function login(credentials) {
-  console.log('Invoking fake login method of loginService');
-  return 'Success';
+  console.log("Invoking fake login method of loginService");
+  return "Success";
 }
