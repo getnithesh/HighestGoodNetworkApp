@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 import {
 	Input,
@@ -7,8 +7,8 @@ import {
 	CardImg,
 	InputGroupAddon,
 	InputGroupText
-} from 'reactstrap'
-import { orange } from '../../../constants/colors'
+} from "reactstrap";
+import { orange } from "../../../constants/colors";
 
 const SideBar = ({
 	firstName,
@@ -24,119 +24,118 @@ const SideBar = ({
 	handleUserProfile,
 	handleImageUpload
 }) => {
-	console.log('phoneNumberPubliclyAccessible props', phoneNumberPubliclyAccessible)
 	const edit = event => {
-		console.log(event.target.value, event.target.id)
-		let payload = null
-		if (event.target.id === 'firstName') {
-			payload = { firstName: event.target.value }
+		let payload = null;
+		if (event.target.id === "firstName") {
+			payload = { firstName: event.target.value };
 		}
-		if (event.target.id === 'lastName') {
-			payload = { lastName: event.target.value }
+		if (event.target.id === "lastName") {
+			payload = { lastName: event.target.value };
 		}
 
-		if (event.target.id === 'email') {
-			payload = { email: event.target.value }
+		if (event.target.id === "email") {
+			payload = { email: event.target.value };
 		}
-	}
+	};
 
 	return (
 		<>
 			<>
 				<Label
-					for='newProfilePic'
-					htmlFor={'newProfilePic'}
-					style={{ color: 'red', cursor: 'pointer' }}>
+					for="newProfilePic"
+					htmlFor="newProfilePic"
+					style={{ color: "red", cursor: "pointer" }}
+				>
 					Change Profile Picture
-				</Label>
+        </Label>
 
 				<Input
-					type='file'
-					name='newProfilePic'
-					id={'newProfilePic'}
-					style={{ visibility: 'hidden', width: 0, height: 0 }}
+					type="file"
+					name="newProfilePic"
+					id="newProfilePic"
+					style={{ visibility: "hidden", width: 0, height: 0 }}
 					onChange={handleImageUpload}
-					accept={'image/png,image/jpeg, image/jpg'}
+					accept="image/png,image/jpeg, image/jpg"
 				/>
 			</>
 
 			<CardImg
-				src={profilePic || '/defaultprofilepic.png'}
-				alt='Profile pic'
-				style={{ width: '250px', height: '250px' }}
+				src={profilePic || "/defaultprofilepic.png"}
+				alt="Profile pic"
+				style={{ width: "250px", height: "250px" }}
 			/>
 
 			<FormGroup>
-				<Label for='firstName'>First Name:</Label>
+				<Label for="firstName">First Name:</Label>
 				<Input
-					type='text'
-					name='firstName'
-					id='firstName'
+					type="text"
+					name="firstName"
+					id="firstName"
 					value={firstName}
 					style={{ color: orange }}
 					onChange={handleUserProfile}
-					placeholder='First Name Cannot be blank'
+					placeholder="First Name Cannot be blank"
 					readOnly={canEditFields ? null : true}
 				/>
 			</FormGroup>
 			<FormGroup>
-				<Label for='lastName'>Last Name:</Label>
+				<Label for="lastName">Last Name:</Label>
 				<Input
-					type='text'
-					name='lastName'
-					id='lastName'
+					type="text"
+					name="lastName"
+					id="lastName"
 					value={lastName}
 					style={{ color: orange }}
 					onChange={handleUserProfile}
-					placeholder='Last Name Cannot be blank'
+					placeholder="Last Name Cannot be blank"
 					readOnly={canEditFields ? null : true}
 				/>
 			</FormGroup>
 			<FormGroup>
-				<Label for='email'>Email:</Label>
-				<InputGroupAddon addonType='prepend'>
+				<Label for="email">Email:</Label>
+				<InputGroupAddon addonType="prepend">
 					<InputGroupText>
 						<Input
 							addon
-							type='checkbox'
-							aria-label='Checkbox for following text input'
+							type="checkbox"
+							aria-label="Checkbox for following text input"
 							checked={emailPubliclyAccessible}
 							onChange={handleUserProfile}
-							id='emailPubliclyAccessible'
+							id="emailPubliclyAccessible"
 						/>
 					</InputGroupText>
-					<Label style={{ textAlign: 'center' }}>Publicly Accessible?</Label>
+					<Label style={{ textAlign: "center" }}>Publicly Accessible?</Label>
 				</InputGroupAddon>
 				<Input
-					type='email'
-					name='email'
-					id='email'
+					type="email"
+					name="email"
+					id="email"
 					style={{ color: orange }}
 					value={email}
 					onChange={handleUserProfile}
-					placeholder='Email Cannot be blank'
+					placeholder="Email Cannot be blank"
 					readOnly={canEditFields ? null : true}
 				/>
 			</FormGroup>
 			<FormGroup>
-				<Label for='phoneNumber'>Phone Number:</Label>
-				<InputGroupAddon addonType='prepend'>
+				<Label for="phoneNumber">Phone Number:</Label>
+				<InputGroupAddon addonType="prepend">
 					<InputGroupText>
 						<Input
 							addon
-							type='checkbox'
-							aria-label='Checkbox for following text input'
+							type="checkbox"
+							aria-label="Checkbox for following text input"
 							checked={phoneNumberPubliclyAccessible}
 							onChange={handleUserProfile}
-							id='phoneNumberPubliclyAccessible'
+							id="phoneNumberPubliclyAccessible"
 						/>
 					</InputGroupText>
-					<Label style={{ textAlign: 'center' }}>Publicly Accessible?</Label>
+					<Label style={{ textAlign: "center" }}>Publicly Accessible?</Label>
 				</InputGroupAddon>
 				<Input
-					type='number'
-					name='phoneNumber'
-					id='phoneNumber'
+					type="number"
+					name="phoneNumber"
+					id="phoneNumber"
 					style={{ color: orange }}
 					value={phoneNumber}
 					onChange={handleUserProfile}
@@ -144,11 +143,11 @@ const SideBar = ({
 				/>
 			</FormGroup>
 			<FormGroup>
-				<Label for='jobTitle'>Job Title:</Label>
+				<Label for="jobTitle">Job Title:</Label>
 				<Input
-					type='text'
-					name='jobTitle'
-					id='jobTitle'
+					type="text"
+					name="jobTitle"
+					id="jobTitle"
 					style={{ color: orange }}
 					value={jobTitle}
 					onChange={handleUserProfile}
@@ -156,7 +155,7 @@ const SideBar = ({
 				/>
 			</FormGroup>
 		</>
-	)
-}
+	);
+};
 
-export default SideBar
+export default SideBar;

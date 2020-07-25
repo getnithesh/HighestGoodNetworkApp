@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { UserRole } from "./utils/enums";
 
 export default (
+  // eslint-disable-next-line react/jsx-filename-extension
   <>
     <Header />
     <ToastContainer />

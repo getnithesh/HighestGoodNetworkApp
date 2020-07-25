@@ -45,12 +45,12 @@ class UserProfile extends Component {
 		let userId = this.props.match.params.userId
 		await this.props.getUserProfile(userId)
 		await this.props.getUserTeamMembers(userId)
-		console.log(this.props.userProfile)
+
 		if (this.props.userProfile.firstName.length) {
-			console.log(this.props.userProfile)
+
 			this.setState({ isLoading: false, userProfile: this.props.userProfile })
 		}
-		//console.log(this.props.userProfile)
+		//
 	}
 	// componentWillUnmount() {
 	//   this.props.clearUserProfile()
@@ -146,7 +146,7 @@ class UserProfile extends Component {
 			return this.setState({ imageUploadError, isValid })
 		}
 		let filesizeKB = file.size / 1024
-		console.log(filesizeKB)
+
 
 		if (filesizeKB > 50) {
 			imageUploadError = `\nThe file you are trying to upload exceed the maximum size of 50KB. You can choose a different file or use an online file compressor.`
@@ -157,7 +157,7 @@ class UserProfile extends Component {
 		let reader = new FileReader()
 		reader.readAsDataURL(file)
 		reader.onloadend = () => {
-			console.log(reader, file)
+
 
 			this.setState({
 				imageUploadError: '',
@@ -175,7 +175,7 @@ class UserProfile extends Component {
 			this.props.match.params.userId,
 			this.state.userProfile
 		)
-		console.log(submitResult)
+
 
 		if (submitResult === 200) {
 			this.setState({
@@ -209,7 +209,7 @@ class UserProfile extends Component {
 		} = this.state.userProfile
 		const { firstNameError, lastNameError, imageUploadError, error } = this.state
 
-		console.log('state is ', this.state)
+
 		const {
 			teams,
 			projects,
@@ -449,8 +449,8 @@ class UserProfile extends Component {
 							data={teams}
 							label='Team'
 							collection='teams'
-							//handleDelete={this.handleCollection}
-							// handleBulkUpdates={this.handleMemberships}
+						//handleDelete={this.handleCollection}
+						// handleBulkUpdates={this.handleMemberships}
 						/>
 					</div>
 					<div className='col-6'>
@@ -460,8 +460,8 @@ class UserProfile extends Component {
 							data={projects}
 							label='Project'
 							collection='projects'
-							//handleDelete={this.handleCollection}
-							//handleBulkUpdates={this.handleMemberships}
+						//handleDelete={this.handleCollection}
+						//handleBulkUpdates={this.handleMemberships}
 						/>
 					</div>
 				</div>

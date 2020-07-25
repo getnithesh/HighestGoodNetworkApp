@@ -7,12 +7,10 @@ const userProfilesInitial = {
   status: 404
 };
 
-export const updateObject = (oldObject, updatedProperties) => {
-  return {
-    ...oldObject,
-    ...updatedProperties
-  };
-};
+export const updateObject = (oldObject, updatedProperties) => ({
+  ...oldObject,
+  ...updatedProperties
+});
 
 export const allUserProfilesReducer = (
   userProfiles = userProfilesInitial,
@@ -34,8 +32,9 @@ export const allUserProfilesReducer = (
       });
 
     case types.USER_PROFILE_UPDATE:
+      // eslint-disable-next-line no-case-declarations
       const index = userProfiles.userProfiles.findIndex(
-        user => user._id == action.user._id
+        user => user._id === action.user._id
       );
       return updateObject(userProfiles, {
         userProfiles: Object.assign([
@@ -49,8 +48,9 @@ export const allUserProfilesReducer = (
       });
 
     case types.USER_PROFILE_DELETE:
+      // eslint-disable-next-line no-case-declarations
       const deletedIndex = userProfiles.userProfiles.findIndex(
-        user => user._id == action.user._id
+        user => user._id === action.user._id
       );
       return updateObject(userProfiles, {
         userProfiles: Object.assign([

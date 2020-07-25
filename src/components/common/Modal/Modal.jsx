@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
 	Button,
 	Modal,
@@ -9,7 +9,8 @@ import {
 	InputGroupAddon,
 	InputGroupText,
 	Input
-} from 'reactstrap'
+} from "reactstrap";
+
 const ModalExample = props => {
 	const {
 		isOpen,
@@ -20,54 +21,56 @@ const ModalExample = props => {
 		modalMessage,
 		type,
 		linkType
-	} = props
+	} = props;
 
-	const [modal, setModal] = useState(false)
-	const [linkName, setLinkName] = useState('')
-	const [linkURL, setLinkURL] = useState('')
+	const [modal, setModal] = useState(false);
+	const [linkName, setLinkName] = useState("");
+	const [linkURL, setLinkURL] = useState("");
 
-	const toggle = () => setModal(!modal)
+	const toggle = () => setModal(!modal);
 
 	const handleChange = event => {
-		event.preventDefault()
+		event.preventDefault();
 
-		if (event.target.id === 'linkName') {
-			setLinkName(event.target.value.trim())
+		if (event.target.id === "linkName") {
+			setLinkName(event.target.value.trim());
 		} else {
-			setLinkURL(event.target.value.trim())
+			setLinkURL(event.target.value.trim());
 		}
-	}
+	};
 
-	const buttonDisabled = !(linkName && linkURL)
-
-	if (type) {
-		console.log('Type of Modal is ', type, linkName, linkURL, buttonDisabled)
-	}
+	const buttonDisabled = !(linkName && linkURL);
 
 	return (
 		<Modal isOpen={isOpen} toggle={closeModal}>
 			<ModalHeader toggle={closeModal}>{modalTitle}</ModalHeader>
 
 			<ModalBody>
-				{type === 'input' ? (
+				{type === "input" ? (
 					<>
 						<InputGroup>
-							<InputGroupAddon addonType='prepend'>
-								<InputGroupText style={{ width: '80px' }}>Name</InputGroupText>
+							<InputGroupAddon addonType="prepend">
+								<InputGroupText style={{ width: "80px" }}>Name</InputGroupText>
 							</InputGroupAddon>
 							<Input
-								id='linkName'
-								placeholder='Name of the link'
+								id="linkName"
+								placeholder="Name of the link"
 								onChange={handleChange}
 							/>
 						</InputGroup>
 						<br />
 
 						<InputGroup>
-							<InputGroupAddon addonType='prepend'>
-								<InputGroupText style={{ width: '80px' }}>Link URL</InputGroupText>
+							<InputGroupAddon addonType="prepend">
+								<InputGroupText style={{ width: "80px" }}>
+									Link URL
+                </InputGroupText>
 							</InputGroupAddon>
-							<Input id='linkURL' placeholder='URL of the link' onChange={handleChange} />
+							<Input
+								id="linkURL"
+								placeholder="URL of the link"
+								onChange={handleChange}
+							/>
 						</InputGroup>
 					</>
 				) : (
@@ -75,24 +78,33 @@ const ModalExample = props => {
 					)}
 			</ModalBody>
 			<ModalFooter>
-				<Button color='primary' onClick={closeModal}>
+				<Button color="primary" onClick={closeModal}>
 					Close
-				</Button>
+        </Button>
 
-				{confirmModal != null ? <Button color="danger" onClick={confirmModal}>Confirm</Button> : null}
-				{setInactiveModal != null ? <Button color="warning" onClick={setInactiveModal}>Set inactive</Button> : null}
+				{confirmModal != null ? (
+					<Button color="danger" onClick={confirmModal}>
+						Confirm
+					</Button>
+				) : null}
+				{setInactiveModal != null ? (
+					<Button color="warning" onClick={setInactiveModal}>
+						Set inactive
+					</Button>
+				) : null}
 
-				{type === 'input' && (
+				{type === "input" && (
 					<Button
-						color='danger'
+						color="danger"
 						onClick={() => confirmModal(linkName, linkURL, linkType)}
-						disabled={buttonDisabled}>
+						disabled={buttonDisabled}
+					>
 						Add
 					</Button>
 				)}
 			</ModalFooter>
 		</Modal>
-	)
-}
+	);
+};
 
-export default ModalExample
+export default ModalExample;

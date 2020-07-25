@@ -134,7 +134,7 @@ describe("Login behavior", () => {
       somepath
     );
     wrapper.instance().doSubmit();
-    console.log(`Location is : ${global.location.pathname}`);
+
     expect(window.location.pathname).toEqual(somepath);
   });
 

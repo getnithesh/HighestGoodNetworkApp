@@ -8,6 +8,16 @@ import { SET_CURRENT_USER, SET_HEADER_DATA } from "../constants/auth";
 
 const { tokenKey } = config;
 
+export const setCurrentUser = decoded => ({
+  type: SET_CURRENT_USER,
+  payload: decoded
+});
+
+export const setHeaderData = data => ({
+  type: SET_HEADER_DATA,
+  payload: data
+});
+
 export const loginUser = credentials => dispatch => {
   httpService
     .post(ENDPOINTS.LOGIN, credentials)
@@ -17,7 +27,6 @@ export const loginUser = credentials => dispatch => {
       } else {
         localStorage.setItem(tokenKey, res.data.token);
         httpService.setjwt(res.data.token);
-        console.log(res.data.token);
         const decoded = jwtDecode(res.data.token);
         dispatch(setCurrentUser(decoded));
       }
@@ -37,7 +46,7 @@ export const getHeaderData = userId => {
   const url = ENDPOINTS.USER_PROFILE(userId);
   return async dispatch => {
     const res = await axios.get(url);
-    // console.log('userrprofie', res)
+    //
 
     await dispatch(
       setHeaderData({
@@ -53,13 +62,3 @@ export const logoutUser = () => dispatch => {
   httpService.setjwt(false);
   dispatch(setCurrentUser(null));
 };
-
-export const setCurrentUser = decoded => ({
-  type: SET_CURRENT_USER,
-  payload: decoded
-});
-
-export const setHeaderData = data => ({
-  type: SET_HEADER_DATA,
-  payload: data
-});

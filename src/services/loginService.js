@@ -1,10 +1,10 @@
-import jwtDecode from "jwt-decode";
-import httpService from "./httpService";
-import config from "../config.json";
+// import jwtDecode from "jwt-decode";
+// import httpService from "./httpService";
+// import config from "../config.json";
 
-const loginApiEndpoint = `${process.env.REACT_APP_APIENDPOINT}/login`;
+// const loginApiEndpoint = `${process.env.REACT_APP_APIENDPOINT}/login`;
 
-const { tokenKey } = config;
+// const { tokenKey } = config;
 
 // export async function login(credentials) {
 //   const { data } = await httpService.post(loginApiEndpoint, credentials);

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /** *******************************************************************************
  * Action: PROJECTS
  * Author: Henry Ng - 01/17/20
@@ -5,6 +6,55 @@
 import axios from "axios";
 import * as types from "../constants/projects";
 import { ENDPOINTS } from "../utils/URL";
+
+/** *****************************************
+ * PLAIN OBJECT ACTIONS
+ ****************************************** */
+
+/**
+ * Set a flag that fetching projects
+ */
+export const setProjectsStart = () => ({
+  type: types.FETCH_PROJECTS_START
+});
+
+/**
+ * set Projects in store
+ * @param payload : projects []
+ */
+export const setProjects = payload => ({
+  type: types.RECEIVE_PROJECTS,
+  payload
+});
+
+/**
+ * Error when setting project
+ * @param payload : error status code
+ */
+export const setProjectsError = payload => ({
+  type: types.FETCH_PROJECTS_ERROR,
+  payload
+});
+
+export const addNewProject = (payload, status) => ({
+  type: types.ADD_NEW_PROJECT,
+  payload,
+  status
+});
+
+export const removeProject = (projectId, status) => ({
+  type: types.DELETE_PROJECT,
+  projectId,
+  status
+});
+
+export const updateProject = (projectId, projectName, isActive, status) => ({
+  type: types.UPDATE_PROJECT,
+  projectId,
+  projectName,
+  isActive,
+  status
+});
 
 /** *****************************************
  * ACTION CREATORS
@@ -16,18 +66,13 @@ import { ENDPOINTS } from "../utils/URL";
 export const fetchAllProjects = () => {
   const request = axios.get(ENDPOINTS.PROJECTS);
 
-  console.log(ENDPOINTS.PROJECTS);
-  console.log(request);
-
   return async dispatch => {
     await dispatch(setProjectsStart());
     request
       .then(res => {
-        console.log("RES", res);
         dispatch(setProjects(res.data));
       })
-      .catch(err => {
-        console.log("Error", err);
+      .catch(() => {
         dispatch(setProjectsError());
       });
   };
@@ -40,24 +85,24 @@ export const fetchAllProjects = () => {
  */
 export const postNewProject = (projectName, isActive) => {
   const url = ENDPOINTS.PROJECTS;
-  console.log("Call API: ", url);
+
   return async dispatch => {
     let status = 200;
-    let _id = null;
+    let id = null;
 
     try {
       const res = await axios.post(url, { projectName, isActive });
-      _id = res.data._id;
+      // eslint-disable-next-line no-underscore-dangle
+      id = res.data._id;
       status = res.status;
     } catch (err) {
-      console.log("TRY CATCH ERR", err);
       status = 400;
     }
 
     dispatch(
       addNewProject(
         {
-          _id,
+          id,
           projectName,
           isActive
         },
@@ -74,10 +119,6 @@ export const postNewProject = (projectName, isActive) => {
 export const deleteProject = projectId => {
   const url = ENDPOINTS.PROJECT + projectId;
 
-  console.log("Delete", projectId);
-
-  console.log("Delete", projectId);
-
   return async dispatch => {
     let status = 200;
 
@@ -85,7 +126,6 @@ export const deleteProject = projectId => {
       const res = await axios.delete(url);
       status = res.status;
     } catch (err) {
-      console.log("CAN'T DELETE", err);
       status = 400;
     }
 
@@ -95,86 +135,20 @@ export const deleteProject = projectId => {
 
 export const modifyProject = (type, projectId, projectName, isActive) => {
   const url = ENDPOINTS.PROJECT + projectId;
-  console.log("set Active", projectId, projectName, isActive);
+  const active = type === "setActive" ? !isActive : isActive;
 
-  if (type === "setActive") {
-    isActive = !isActive;
-  }
   return async dispatch => {
     let status = 200;
-
     try {
       const res = await axios.put(url, {
         projectName,
-        isActive
+        active
       });
       status = res.status;
     } catch (err) {
-      console.log("CAN'T Set active", err);
       status = 400;
     }
 
     dispatch(updateProject(projectId, projectName, isActive, status));
-  };
-};
-
-/** *****************************************
- * PLAIN OBJECT ACTIONS
- ****************************************** */
-
-/**
- * Set a flag that fetching projects
- */
-export const setProjectsStart = () => {
-  return {
-    type: types.FETCH_PROJECTS_START
-  };
-};
-
-/**
- * set Projects in store
- * @param payload : projects []
- */
-export const setProjects = payload => {
-  return {
-    type: types.RECEIVE_PROJECTS,
-    payload
-  };
-};
-
-/**
- * Error when setting project
- * @param payload : error status code
- */
-export const setProjectsError = payload => {
-  return {
-    type: types.FETCH_PROJECTS_ERROR,
-    payload
-  };
-};
-
-export const addNewProject = (payload, status) => {
-  return {
-    type: types.ADD_NEW_PROJECT,
-    payload,
-    status
-  };
-};
-
-export const removeProject = (projectId, status) => {
-  return {
-    type: types.DELETE_PROJECT,
-    projectId,
-    status
-  };
-};
-
-export const updateProject = (projectId, projectName, isActive, status) => {
-  return {
-    type: types.UPDATE_PROJECT,
-    projectId,
-    projectName,
-    isActive,
-    status
   };
 };

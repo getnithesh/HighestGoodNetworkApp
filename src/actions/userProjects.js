@@ -2,6 +2,11 @@ import axios from "axios";
 import { GET_USER_PROJECTS } from "../constants/userProjects";
 import { ENDPOINTS } from "../utils/URL";
 
+export const setUserProjects = data => ({
+  type: GET_USER_PROJECTS,
+  payload: data
+});
+
 export const getUserProjects = userId => {
   const url = ENDPOINTS.USER_PROJECTS(userId);
   return async dispatch => {
@@ -9,8 +14,3 @@ export const getUserProjects = userId => {
     await dispatch(setUserProjects(res.data));
   };
 };
-
-export const setUserProjects = data => ({
-  type: GET_USER_PROJECTS,
-  payload: data
-});

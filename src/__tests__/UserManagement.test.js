@@ -155,7 +155,6 @@ describe("User Management Component", () => {
       expect(userManagementComponent.find(".usermanagement__tr").length).toBe(
         1
       );
-      console.log(userManagementComponent.state);
     });
 
     it("verifying the wild card search", () => {

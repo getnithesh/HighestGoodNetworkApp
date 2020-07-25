@@ -1,4 +1,4 @@
-let getUserProfile_result;
+let getUserProfileResult;
 const getUserProfileOptions = {
   userProfile: {
     name: "Foobar",
@@ -7,10 +7,10 @@ const getUserProfileOptions = {
   }
 };
 
-getUserProfile.__setValue = option => {
-  getUserProfile_result = getUserProfileOptions[option];
-};
-
 export function getUserProfile() {
-  return getUserProfile_result;
+  return getUserProfileResult;
 }
+
+getUserProfile.__setValue = option => {
+  getUserProfileResult = getUserProfileOptions[option];
+};

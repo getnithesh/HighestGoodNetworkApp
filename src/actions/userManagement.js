@@ -10,6 +10,49 @@ import { ENDPOINTS } from "../utils/URL";
 import { UserStatus } from "../utils/enums";
 
 /**
+ * Set a flag that fetching user profiles
+ */
+export const userProfilesFetchStartAction = () => ({
+  type: FETCH_USER_PROFILES_START
+});
+
+/**
+ * set Projects in store
+ * @param payload : projects []
+ */
+export const userProfilesFetchCompleteACtion = payload => ({
+  type: RECEIVE_ALL_USER_PROFILES,
+  payload
+});
+
+/**
+ * Error when setting the user profiles list
+ * @param payload : error status code
+ */
+export const userProfilesFetchErrorAction = payload => ({
+  type: FETCH_USER_PROFILES_ERROR,
+  payload
+});
+
+/**
+ * Action for Updating an user profile
+ * @param {*} user : the updated user
+ */
+export const userProfileUpdateAction = user => ({
+  type: USER_PROFILE_UPDATE,
+  user
+});
+
+/**
+ * Delete user profile action
+ * @param {*} user : the deleted user
+ */
+export const userProfileDeleteAction = user => ({
+  type: USER_PROFILE_DELETE,
+  user
+});
+
+/**
  * fetching all user profiles
  */
 export const getAllUserProfile = () => {
@@ -20,7 +63,7 @@ export const getAllUserProfile = () => {
       .then(res => {
         dispatch(userProfilesFetchCompleteACtion(res.data));
       })
-      .catch(err => {
+      .catch(() => {
         dispatch(userProfilesFetchErrorAction());
       });
   };
@@ -41,7 +84,7 @@ export const updateUserStatus = (user, status, reactivationDate) => {
     patchData
   );
   return async dispatch => {
-    updateProfilePromise.then(res => {
+    updateProfilePromise.then(() => {
       dispatch(userProfileUpdateAction(userProfile));
     });
   };
@@ -59,64 +102,11 @@ export const deleteUser = (user, option) => {
   });
   return async dispatch => {
     deleteProfilePromise
-      .then(res => {
+      .then(() => {
         dispatch(userProfileDeleteAction(user));
       })
-      .catch(err => {
+      .catch(() => {
         dispatch(userProfileDeleteAction(user));
       });
-  };
-};
-
-/**
- * Set a flag that fetching user profiles
- */
-export const userProfilesFetchStartAction = () => {
-  return {
-    type: FETCH_USER_PROFILES_START
-  };
-};
-
-/**
- * set Projects in store
- * @param payload : projects []
- */
-export const userProfilesFetchCompleteACtion = payload => {
-  return {
-    type: RECEIVE_ALL_USER_PROFILES,
-    payload
-  };
-};
-
-/**
- * Error when setting the user profiles list
- * @param payload : error status code
- */
-export const userProfilesFetchErrorAction = payload => {
-  return {
-    type: FETCH_USER_PROFILES_ERROR,
-    payload
-  };
-};
-
-/**
- * Action for Updating an user profile
- * @param {*} user : the updated user
- */
-export const userProfileUpdateAction = user => {
-  return {
-    type: USER_PROFILE_UPDATE,
-    user
-  };
-};
-
-/**
- * Delete user profile action
- * @param {*} user : the deleted user
- */
-export const userProfileDeleteAction = user => {
-  return {
-    type: USER_PROFILE_DELETE,
-    user
   };
 };

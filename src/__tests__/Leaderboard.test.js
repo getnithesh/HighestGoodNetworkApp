@@ -3,12 +3,6 @@ import { mount } from "enzyme";
 import Leaderboard from "../components/Leaderboard";
 
 describe("Leaderboard component structure", () => {
-  // let mountedLeaderboard;
-  // beforeEach(() => {
-  //        mountedLeaderboard = mount(<Leaderboard />);
-  //    })
-
-  it("will be redone after redux edits", () => {
-    console.log(test);
-  });
+  // eslint-disable-next-line no-undef
+  it("will be redone after redux edits", () => {});
 });

@@ -104,7 +104,6 @@ class Projects extends Component {
     let numberOfActive = projects.filter(project => project.isActive).length;
 
     let showModalMsg = false;
-    console.log("STSTUS", status);
 
     if (status == 400 && trackModelMsg) {
       showModalMsg = true;

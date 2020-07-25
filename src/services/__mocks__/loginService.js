@@ -1,4 +1,4 @@
-let getCurrentUser_result;
+let getCurrentUserResult;
 const getCurrentUseroptions = {
   userPresent: { foo: "bar", baz: "masklsd" },
   userNotPresent: null,
@@ -9,15 +9,14 @@ const getCurrentUseroptions = {
   }
 };
 
-getCurrentUser.__setValue = option => {
-  getCurrentUser_result = getCurrentUseroptions[option];
-};
-
 export function getCurrentUser() {
-  return getCurrentUser_result;
+  return getCurrentUserResult;
 }
 
-export function login(credentials) {
-  console.log("Invoking fake login method of loginService");
+export function login() {
   return "Success";
 }
+
+getCurrentUser.__setValue = option => {
+  getCurrentUserResult = getCurrentUseroptions[option];
+};

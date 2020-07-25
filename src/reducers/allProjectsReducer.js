@@ -7,33 +7,25 @@ const allProjectsInital = {
   status: 404
 };
 
-export const updateObject = (oldObject, updatedProperties) => {
-  return {
-    ...oldObject,
-    ...updatedProperties
-  };
-};
+export const updateObject = (oldObject, updatedProperties) => ({
+  ...oldObject,
+  ...updatedProperties
+});
 
 export const allProjectsReducer = (allProjects = allProjectsInital, action) => {
   switch (action.type) {
     case types.FETCH_PROJECTS_START:
       return { ...allProjects, fetching: true, status: "200" };
-      break;
     case types.FETCH_PROJECTS_ERROR:
-      console.log("Reducers error", action.payload);
       return { ...allProjects, fetching: false, status: action.payload };
-      break;
     case types.RECEIVE_PROJECTS:
-      console.log("Reducers projects", action.payload);
       return updateObject(allProjects, {
         projects: action.payload,
         fetching: false,
         fetched: true,
         status: "200"
       });
-      break;
     case types.ADD_NEW_PROJECT:
-      console.log("PAYLOAD ADD", action.payload, action.status);
       if (action.status === 201) {
         return {
           ...allProjects,
@@ -41,12 +33,10 @@ export const allProjectsReducer = (allProjects = allProjectsInital, action) => {
         };
       }
       return { ...allProjects, status: action.status };
-
-      break;
     case types.DELETE_PROJECT:
       if (action.status === 200) {
         const index = allProjects.projects.findIndex(
-          project => project._id == action.projectId
+          project => project._id === action.projectId
         );
         return updateObject(allProjects, {
           projects: Object.assign([
@@ -58,7 +48,7 @@ export const allProjectsReducer = (allProjects = allProjectsInital, action) => {
       break;
     case types.UPDATE_PROJECT:
       const index = allProjects.projects.findIndex(
-        project => project._id == action.projectId
+        project => project._id === action.projectId
       );
       return updateObject(allProjects, {
         projects: Object.assign([
@@ -72,5 +62,6 @@ export const allProjectsReducer = (allProjects = allProjectsInital, action) => {
         ])
       });
   }
+
   return allProjects;
 };

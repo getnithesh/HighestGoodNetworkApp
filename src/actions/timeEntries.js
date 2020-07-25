@@ -2,11 +2,20 @@ import axios from "axios";
 import moment from "moment";
 import {
   GET_TIME_ENTRIES_WEEK,
-  GET_TIME_ENTRIES_PERIOD,
-  ADD_TIME_ENTRY
+  GET_TIME_ENTRIES_PERIOD
 } from "../constants/timeEntries";
 import { ENDPOINTS } from "../utils/URL";
-import { timeEntriesReducer } from "../reducers/timeEntriesReducer";
+
+export const setTimeEntriesForWeek = (data, offset) => ({
+  type: GET_TIME_ENTRIES_WEEK,
+  payload: data,
+  offset
+});
+
+export const setTimeEntriesForPeriod = data => ({
+  type: GET_TIME_ENTRIES_PERIOD,
+  payload: data
+});
 
 /**
  * number === 0 current week
@@ -24,6 +33,19 @@ export const getTimeEntriesForWeek = (userId, offset) => {
   return async dispatch => {
     const res = await axios.get(url);
     await dispatch(setTimeEntriesForWeek(res.data, offset));
+  };
+};
+
+const updateTimeEntries = timeEntry => {
+  const startOfWeek = moment().startOf("week");
+  const offset = Math.ceil(
+    startOfWeek.diff(timeEntry.dateOfWork, "week", true)
+  );
+
+  return async dispatch => {
+    if (offset <= 2 && offset >= 0) {
+      dispatch(getTimeEntriesForWeek(timeEntry.personId, offset));
+    }
   };
 };
 
@@ -73,27 +95,3 @@ export const deleteTimeEntry = timeEntry => {
     }
   };
 };
-
-const updateTimeEntries = timeEntry => {
-  const startOfWeek = moment().startOf("week");
-  const offset = Math.ceil(
-    startOfWeek.diff(timeEntry.dateOfWork, "week", true)
-  );
-
-  return async dispatch => {
-    if (offset <= 2 && offset >= 0) {
-      dispatch(getTimeEntriesForWeek(timeEntry.personId, offset));
-    }
-  };
-};
-
-export const setTimeEntriesForWeek = (data, offset) => ({
-  type: GET_TIME_ENTRIES_WEEK,
-  payload: data,
-  offset
-});
-
-export const setTimeEntriesForPeriod = data => ({
-  type: GET_TIME_ENTRIES_PERIOD,
-  payload: data
-});

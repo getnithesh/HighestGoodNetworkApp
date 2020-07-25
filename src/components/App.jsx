@@ -1,22 +1,22 @@
 import React, { Component } from "react";
-import routes from '../routes'
+import jwtDecode from "jwt-decode";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
+import routes from "../routes";
 import logger from "../services/logService";
 
 import httpService from "../services/httpService";
-import jwtDecode from 'jwt-decode';
-import { setCurrentUser, logoutUser } from "../actions/authActions"
+import { setCurrentUser, logoutUser } from "../actions/authActions";
 
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import configureStore from '../store';
-import { PersistGate } from 'redux-persist/integration/react';
-import Loading from './common/Loading'
+import configureStore from "../store";
+import Loading from "./common/Loading";
 
 import config from "../config.json";
 import "../App.css";
 
 const { persistor, store } = configureStore();
-const tokenKey = config.tokenKey;
+const { tokenKey } = config;
 
 // Check for token
 if (localStorage.getItem(tokenKey)) {
@@ -25,12 +25,11 @@ if (localStorage.getItem(tokenKey)) {
   // Check for expired token
   const currentTime = Date.now() / 1000;
   const expiryTime = new Date(decoded.expiryTimestamp).getTime() / 1000;
-  console.log(currentTime, expiryTime);
+
   if (expiryTime < currentTime) {
     // Logout user
     store.dispatch(logoutUser());
-  }
-  else {
+  } else {
     // Set auth token header auth
     httpService.setjwt(localStorage.getItem(tokenKey));
     // Set user and isAuthenticated
@@ -39,19 +38,16 @@ if (localStorage.getItem(tokenKey)) {
 }
 
 class App extends Component {
-  state = {};
-
   componentDidCatch(error, errorInfo) {
     logger.logError(error);
+    logger.logInfo(errorInfo);
   }
 
   render() {
     return (
       <Provider store={store}>
-        <PersistGate loading={<Loading/>} persistor={persistor}>
-          <Router>
-            { routes }
-          </Router>
+        <PersistGate loading={<Loading />} persistor={persistor}>
+          <Router>{routes}</Router>
         </PersistGate>
       </Provider>
     );
