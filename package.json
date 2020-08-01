@@ -36,7 +36,7 @@
   },
   "scripts": {
     "prestart": "npm run test",
-    "start": "react-scripts start",
+    "start": "npm run start:local",
     "build": "react-scripts build",
     "lint": "eslint src --fix",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
